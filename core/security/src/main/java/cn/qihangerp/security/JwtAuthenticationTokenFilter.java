@@ -35,15 +35,15 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     /**
      * 需要拦截的请求头信息
      */
-    @Value("${token.header:'Authorization'}")
-    public String TOKEN_HEADER = "Authorization";
+    @Value("${token.header:Authorization}")
+    private String tokenHeader;
     private Logger log = LoggerFactory.getLogger(getClass());
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
 //        String token = exchange.getRequest().getHeaders().getFirst(TOKEN_HEADER);
-        String token = request.getHeader("Authorization");
+        String token = request.getHeader(tokenHeader);
         String url = request.getRequestURI();
 //        log.info("intercept " + url);
 //        log.info("token: " + token); || request.getRequestURI().equals("/getInfo") || request.getRequestURI().equals("/logout")
